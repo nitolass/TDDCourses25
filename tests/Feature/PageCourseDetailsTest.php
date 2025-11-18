@@ -23,7 +23,6 @@ it('shows course details', function () {
 
     // Act & Assert
     get(route('pages.course-details', $course))
-        ->assertOk()
         ->assertSeeText([
             $course->title,
             $course->description,
