@@ -3,6 +3,7 @@
 use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+
 use function Pest\Laravel\get;
 
 uses(RefreshDatabase::class);
@@ -16,12 +17,12 @@ it('show courses overview', function () {
     // Act & Assert
     get(route('home'))
         ->assertSeeText([
-            $firstCourse ->title,
-            $firstCourse -> description,
-            $secondCourse -> title,
-            $secondCourse -> description,
-            $thirdCourse -> title,
-            $thirdCourse -> description
+            $firstCourse->title,
+            $firstCourse->description,
+            $secondCourse->title,
+            $secondCourse->description,
+            $thirdCourse->title,
+            $thirdCourse->description,
         ]);
 });
 
@@ -31,25 +32,23 @@ it('shows only released courses', function () {
     $notReleasedCourse = Course::factory()->create();
     // Act & Assert
     get(route('home'))
-        ->assertSeeText([$releasedCourse->title
+        ->assertSeeText([$releasedCourse->title,
         ])
-        ->assertDontSeeText([$notReleasedCourse ->title
+        ->assertDontSeeText([$notReleasedCourse->title,
         ]);
-
-
 
 });
 
 it('shows courses by release date', function () {
     // Arrange
-    $releasedCourse= Course::factory()->released(Carbon::yesterday())->create();
+    $releasedCourse = Course::factory()->released(Carbon::yesterday())->create();
     $newestReleasedCourse = Course::factory()->released()->create();
     // Act
-get(route('home'))
-    ->assertSeeInOrder([
-        $newestReleasedCourse->title,
-        $releasedCourse-> title,
+    get(route('home'))
+        ->assertSeeInOrder([
+            $newestReleasedCourse->title,
+            $releasedCourse->title,
         ]
-    );
+        );
     // Assert
 });

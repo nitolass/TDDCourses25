@@ -13,16 +13,17 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-          'title' =>  $this->faker->sentence(),
-          'description' => $this->faker->paragraph(),
+            'slug' => $this->faker->slug,
+            'title' => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(),
         ];
     }
 
-    public function released(Carbon $date = null){
-        return $this->state
-            (fn(array $attributes) => [
-            'released_at' => $date ?? Carbon::now(),
-        ]);
+    public function released(?Carbon $date = null)
+    {
+        return $this->state(fn (array $attributes) => [
+                'released_at' => $date ?? Carbon::now(),
+            ]);
 
     }
 }

@@ -6,11 +6,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('only returns released courses for released scope', function () {
-    //Arrange
+    // Arrange
     Course::factory()->released()->create();
     Course::factory()->create();
 
-    //Act & Assert
+    // Act & Assert
 
     expect(Course::released()->get())
         ->toHaveCount(1)
